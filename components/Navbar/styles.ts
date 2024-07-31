@@ -1,5 +1,5 @@
 import { text } from "stream/consumers";
-// components/Navbar/styles.ts
+//components/Navbar/styles.ts
 import { AppBar, Box, IconButton, Toolbar, Button } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import Link from "next/link";
