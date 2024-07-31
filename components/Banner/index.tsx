@@ -20,7 +20,7 @@ const slides = [
   {
     title: "Better the Devil I know..",
     description: "Available on Playstation 5 | Xbox Series X | PC",
-    status: " Coming in 2025!",
+    status: " In development!",
   },
   {
     title: "Requiem Creatif",

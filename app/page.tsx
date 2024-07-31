@@ -3,6 +3,7 @@ import Banner from "@/components/Banner";
 import { HeroSection } from "@/components/HeroSection";
 import MainContent from "@/components/MainContent";
 import { ProjectSections } from "@/components/ProjectSections";
+import ContactForm from "@/components/ContactForm";
 import CookieDisclaimer from "@/components/CookieDisclaimer";
 
 export default function Home() {
@@ -10,11 +11,9 @@ export default function Home() {
     <>
       <Banner />
       <HeroSection />
-
-      <Container>
-        <MainContent />
-        <ProjectSections />
-      </Container>
+      <MainContent />
+      <ProjectSections />
+      <ContactForm />
       <CookieDisclaimer />
     </>
   );

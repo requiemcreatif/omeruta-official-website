@@ -12,6 +12,7 @@ import {
   ListItemText,
   ListItemButton,
   useMediaQuery,
+  Fade,
 } from "@mui/material";
 import Link from "next/link";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
@@ -49,8 +50,9 @@ export default function Navbar() {
 
   const navItems: NavItem[] = [
     { label: "Home", href: "/" },
-    { label: "News", href: "#" },
-    { label: "Contact", href: "#" },
+    { label: "News", href: "#news" },
+    { label: "Projects", href: "#projects" },
+    { label: "Contact", href: "#contact" },
   ];
 
   const drawer = (
@@ -87,52 +89,38 @@ export default function Navbar() {
 
   return (
     <NavAppBar position="sticky">
-      <Container>
+      <Container maxWidth="lg">
         <NavToolbar>
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              gap: 2,
-            }}
-          >
-            <LogoWrapper>
-              <Link href="/" passHref legacyBehavior>
-                <Typography sx={{ color: theme.palette.text.primary }}>
-                  Omeruta
-                </Typography>
-              </Link>
-            </LogoWrapper>
+          <LogoWrapper>
+            <Link href="/" passHref>
+              <Typography
+                variant="h5"
+                sx={{
+                  fontWeight: 700,
+                  letterSpacing: 1,
+                  textDecoration: "none",
+                }}
+              >
+                Omeruta
+              </Typography>
+            </Link>
+          </LogoWrapper>
+          <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
             {!isMobile && (
-              <>
-                {navItems.map((item) => (
-                  <NavLink
-                    key={item.label}
-                    component={Link}
-                    href={item.href}
-                    onClick={item.onClick}
-                  >
-                    {item.label}
-                  </NavLink>
-                ))}
-              </>
+              <Fade in={true} style={{ transitionDelay: "100ms" }}>
+                <Box sx={{ display: "flex", gap: 2 }}>
+                  {navItems.map((item) => (
+                    <NavLink
+                      key={item.label}
+                      href={item.href}
+                      onClick={item.onClick}
+                    >
+                      {item.label}
+                    </NavLink>
+                  ))}
+                </Box>
+              </Fade>
             )}
-          </Box>
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            {/* {!isMobile && (
-              <>
-                {navItems.map((item) => (
-                  <NavLink
-                    key={item.label}
-                    component={Link}
-                    href={item.href}
-                    onClick={item.onClick}
-                  >
-                    {item.label}
-                  </NavLink>
-                ))}
-              </>
-            )} */}
             <ModeToggleButton
               onClick={colorMode.toggleColorMode}
               color="inherit"
@@ -143,12 +131,14 @@ export default function Navbar() {
                 <Brightness4Icon />
               )}
             </ModeToggleButton>
-            <MobileMenuIcon
-              onClick={handleDrawerToggle}
-              aria-label="open drawer"
-            >
-              <MenuIcon />
-            </MobileMenuIcon>
+            {isMobile && (
+              <MobileMenuIcon
+                onClick={handleDrawerToggle}
+                aria-label="open drawer"
+              >
+                <MenuIcon />
+              </MobileMenuIcon>
+            )}
           </Box>
         </NavToolbar>
       </Container>
