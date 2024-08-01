@@ -26,7 +26,7 @@ const AnimatedButton = motion(Button);
 
 const ContactForm: React.FC = () => {
   return (
-    <Container maxWidth="lg" sx={{ my: 8 }}>
+    <Container maxWidth="lg" sx={{ my: 8 }} id="contact">
       <Typography variant="h3" align="center" fontWeight={700} gutterBottom>
         Get in Touch
       </Typography>

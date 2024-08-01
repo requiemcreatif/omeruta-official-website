@@ -1,18 +1,16 @@
 // components/Navbar/styles.ts
-import { AppBar, Box, IconButton, Toolbar } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import Link from "next/link";
+import { AppBar, Box, IconButton, Toolbar } from "@mui/material";
 
-export const NavAppBar = styled(AppBar)(({ theme }) => ({
-  height: "70px",
-  backgroundColor:
-    theme.palette.mode === "light"
-      ? "rgba(255, 255, 255, 0.8)"
-      : "rgba(0, 0, 0, 0.8)",
-  backdropFilter: "blur(10px)",
-  boxShadow: "none",
-  borderBottom: `1px solid ${theme.palette.divider}`,
-}));
+export const NavAppBar = styled(AppBar)<{ isscrolled: string }>(
+  ({ theme, isscrolled }) => ({
+    height: "70px",
+    backgroundColor:
+      isscrolled === "true" ? theme.palette.background.paper : "transparent",
+    boxShadow: isscrolled === "true" ? theme.shadows[4] : "none",
+    transition: "all 0.3s ease-in-out",
+  })
+);
 
 export const NavToolbar = styled(Toolbar)({
   display: "flex",
@@ -21,28 +19,37 @@ export const NavToolbar = styled(Toolbar)({
   height: "100%",
 });
 
-export const NavLink = styled(Link)(({ theme }) => ({
-  color: theme.palette.text.primary,
-  padding: theme.spacing(1, 1),
-  textTransform: "none",
-  textDecoration: "none",
-  fontWeight: 500,
-  position: "relative",
-  "&::after": {
-    content: '""',
-    position: "absolute",
-    width: "0%",
-    height: "2px",
-    bottom: 0,
-    left: "50%",
-    backgroundColor: theme.palette.secondary.main,
-    transition: "all 0.3s ease-in-out",
-  },
-  "&:hover::after": {
-    width: "100%",
-    left: "0%",
-  },
-}));
+export const NavLink = styled("a")<{ isscrolled: string }>(
+  ({ theme, isscrolled }) => ({
+    color:
+      isscrolled === "true"
+        ? theme.palette.text.primary
+        : theme.palette.common.white,
+    padding: theme.spacing(1, 1),
+    textTransform: "none",
+    textDecoration: "none",
+    fontWeight: 500,
+    cursor: "pointer",
+    position: "relative",
+    "&::after": {
+      content: '""',
+      position: "absolute",
+      width: "0%",
+      height: "2px",
+      bottom: 0,
+      left: "50%",
+      backgroundColor:
+        isscrolled === "true"
+          ? theme.palette.secondary.main
+          : theme.palette.common.white,
+      transition: "all 0.3s ease-in-out",
+    },
+    "&:hover::after": {
+      width: "100%",
+      left: "0%",
+    },
+  })
+);
 
 export const ModeToggleButton = styled(IconButton)(({ theme }) => ({
   color: theme.palette.text.primary,

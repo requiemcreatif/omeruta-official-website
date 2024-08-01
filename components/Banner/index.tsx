@@ -53,7 +53,7 @@ const Banner: React.FC = () => {
   }, []);
 
   return (
-    <BannerContainer>
+    <BannerContainer id="home">
       <Container maxWidth="lg">
         <Box
           position="relative"

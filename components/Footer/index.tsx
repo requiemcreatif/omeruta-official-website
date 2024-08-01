@@ -1,10 +1,13 @@
+// components/Footer/Footer.tsx
+
+"use client";
 import React from "react";
 import Link from "next/link";
+import { useTheme } from "@mui/material/styles";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import TwitterIcon from "@mui/icons-material/Twitter";
-import IconButton from "@mui/material/IconButton";
 import {
   FooterWrapper,
   FooterContainer,
@@ -20,37 +23,40 @@ import {
 interface SocialIcon {
   Icon: React.ComponentType;
   url: string;
+  label: string;
 }
 
 export const Footer: React.FC = () => {
+  const theme = useTheme();
+
   const socialIcons: SocialIcon[] = [
-    { Icon: InstagramIcon, url: "#" },
-    { Icon: FacebookIcon, url: "#" },
-    { Icon: YouTubeIcon, url: "#" },
-    { Icon: TwitterIcon, url: "#" },
+    { Icon: InstagramIcon, url: "#", label: "Instagram" },
+    { Icon: FacebookIcon, url: "#", label: "Facebook" },
+    { Icon: YouTubeIcon, url: "#", label: "YouTube" },
+    { Icon: TwitterIcon, url: "#", label: "Twitter" },
   ];
+
+  const currentYear = new Date().getFullYear();
 
   return (
     <FooterContainer>
       <FooterWrapper>
         <FooterSocial>
-          {socialIcons.map(({ Icon, url }, index) => (
-            <Link
-              key={index}
-              href={url}
-              passHref
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <IconButton>
+          {socialIcons.map(({ Icon, url, label }, index) => (
+            <Link href={url} target="_blank">
+              <SocialIconButton
+                key={index}
+                rel="noopener noreferrer"
+                aria-label={label}
+              >
                 <Icon />
-              </IconButton>
+              </SocialIconButton>
             </Link>
           ))}
         </FooterSocial>
         <FooterTextContent>
           <FooterCopyrights>
-            © 2024 | All rights reserved | Designed by:{" "}
+            © {currentYear} | All rights reserved | Designed by:{" "}
             <Link href="#" passHref>
               Omeruta
             </Link>
@@ -73,3 +79,5 @@ export const Footer: React.FC = () => {
     </FooterContainer>
   );
 };
+
+export default Footer;

@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://www.omeruta.com
+
+# Sitemaps
+Sitemap: https://www.omeruta.com/sitemap.xml

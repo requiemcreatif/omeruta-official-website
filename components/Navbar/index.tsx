@@ -1,7 +1,7 @@
 // components/Navbar/index.tsx
 "use client";
 
-import React, { useState, MouseEvent } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Typography,
   Box,
@@ -10,9 +10,8 @@ import {
   List,
   ListItem,
   ListItemText,
-  ListItemButton,
+  IconButton,
   useMediaQuery,
-  Fade,
 } from "@mui/material";
 import Link from "next/link";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
@@ -33,9 +32,8 @@ import {
 } from "./styles";
 
 interface NavItem {
+  id: string;
   label: string;
-  href: string;
-  onClick?: () => void;
 }
 
 export default function Navbar() {
@@ -43,44 +41,68 @@ export default function Navbar() {
   const colorMode = useColorMode();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
+  const handleLinkClick = (
+    event: React.MouseEvent<HTMLAnchorElement>,
+    id: string
+  ) => {
+    event.preventDefault();
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+      setMobileOpen(false);
+    } else {
+      console.error(`Element with id ${id} not found.`);
+    }
+  };
+
   const navItems: NavItem[] = [
-    { label: "Home", href: "/" },
-    { label: "News", href: "#news" },
-    { label: "Projects", href: "#projects" },
-    { label: "Contact", href: "#contact" },
+    { id: "home", label: "Home" },
+    { id: "news", label: "News" },
+    { id: "projects", label: "Projects" },
+    { id: "contact", label: "Contact" },
   ];
 
   const drawer = (
     <StyledDrawer>
-      <Box sx={{ textAlign: "left", p: 2 }}>
-        <Typography variant="h6" sx={{ mb: 2 }}>
-          Omeruta
-        </Typography>
+      <Box sx={{ textAlign: "right", p: 2 }}>
         <CloseButton onClick={handleDrawerToggle}>
           <CloseIcon />
         </CloseButton>
       </Box>
       <List>
         {navItems.map((item) => (
-          <ListItem key={item.label} disablePadding>
-            <ListItemButton
-              component={Link}
-              href={item.href}
-              onClick={(e: MouseEvent<HTMLAnchorElement>) => {
-                if (item.onClick) {
-                  e.preventDefault();
-                  item.onClick();
-                }
-                handleDrawerToggle();
+          <ListItem key={item.id} disablePadding>
+            <Link
+              href={`#${item.id}`}
+              onClick={(e) => handleLinkClick(e, item.id)}
+              style={{
+                width: "100%",
+                textDecoration: "none",
+                color: "inherit",
               }}
             >
-              <ListItemText primary={item.label} />
-            </ListItemButton>
+              <ListItemText primary={item.label} sx={{ textAlign: "center" }} />
+            </Link>
           </ListItem>
         ))}
       </List>
@@ -88,7 +110,7 @@ export default function Navbar() {
   );
 
   return (
-    <NavAppBar position="sticky">
+    <NavAppBar position="sticky" isscrolled={isScrolled.toString()}>
       <Container maxWidth="lg">
         <NavToolbar>
           <LogoWrapper>
@@ -107,19 +129,18 @@ export default function Navbar() {
           </LogoWrapper>
           <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
             {!isMobile && (
-              <Fade in={true} style={{ transitionDelay: "100ms" }}>
-                <Box sx={{ display: "flex", gap: 2 }}>
-                  {navItems.map((item) => (
-                    <NavLink
-                      key={item.label}
-                      href={item.href}
-                      onClick={item.onClick}
-                    >
-                      {item.label}
-                    </NavLink>
-                  ))}
-                </Box>
-              </Fade>
+              <Box sx={{ display: "flex", gap: 2 }}>
+                {navItems.map((item) => (
+                  <NavLink
+                    key={item.id}
+                    href={`#${item.id}`}
+                    onClick={(e) => handleLinkClick(e as any, item.id)}
+                    isscrolled={isScrolled.toString()}
+                  >
+                    {item.label}
+                  </NavLink>
+                ))}
+              </Box>
             )}
             <ModeToggleButton
               onClick={colorMode.toggleColorMode}

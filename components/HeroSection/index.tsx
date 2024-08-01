@@ -28,7 +28,7 @@ export const HeroSection: React.FC = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   return (
-    <HeroWrapper>
+    <HeroWrapper id="news">
       <HeroContainer>
         <HeroContent>
           <HeroTitle variant="h2">Omeruta Studio</HeroTitle>
