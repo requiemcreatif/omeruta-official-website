@@ -43,7 +43,7 @@ export const Footer: React.FC = () => {
       <FooterWrapper>
         <FooterSocial>
           {socialIcons.map(({ Icon, url, label }, index) => (
-            <Link href={url} target="_blank">
+            <Link href={url} target="_blank" key={index}>
               <SocialIconButton
                 key={index}
                 rel="noopener noreferrer"
