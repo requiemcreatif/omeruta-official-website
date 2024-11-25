@@ -1,83 +1,108 @@
-// components/Footer/Footer.tsx
-
 "use client";
+
 import React from "react";
+import { motion } from "framer-motion";
 import Link from "next/link";
-import { useTheme } from "@mui/material/styles";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import YouTubeIcon from "@mui/icons-material/YouTube";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import {
-  FooterWrapper,
-  FooterContainer,
-  FooterTerms,
-  FooterLink,
-  FooterTextContent,
-  FooterCopyrights,
-  FooterSocial,
-  FooterBottom,
-  SocialIconButton,
-} from "./styles";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { Instagram, Facebook, Youtube, Twitter } from "lucide-react";
 
-interface SocialIcon {
-  Icon: React.ComponentType;
-  url: string;
-  label: string;
-}
+const socialIcons = [
+  { Icon: Instagram, url: "#", label: "Instagram" },
+  { Icon: Facebook, url: "#", label: "Facebook" },
+  { Icon: Youtube, url: "#", label: "YouTube" },
+  { Icon: Twitter, url: "#", label: "Twitter" },
+];
 
-export const Footer: React.FC = () => {
-  const theme = useTheme();
+const footerLinks = ["Contact", "Privacy", "Terms"];
 
-  const socialIcons: SocialIcon[] = [
-    { Icon: InstagramIcon, url: "#", label: "Instagram" },
-    { Icon: FacebookIcon, url: "#", label: "Facebook" },
-    { Icon: YouTubeIcon, url: "#", label: "YouTube" },
-    { Icon: TwitterIcon, url: "#", label: "Twitter" },
-  ];
-
+export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <FooterContainer>
-      <FooterWrapper>
-        <FooterSocial>
-          {socialIcons.map(({ Icon, url, label }, index) => (
-            <Link href={url} target="_blank" key={index}>
-              <SocialIconButton
-                key={index}
-                rel="noopener noreferrer"
-                aria-label={label}
+    <footer className="relative w-full py-12 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      {/* Gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background/5 via-primary/5 to-background/5" />
+
+      <div className="container relative mx-auto px-4">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-8">
+          {/* Social Icons */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="flex items-center gap-4"
+          >
+            {socialIcons.map(({ Icon, url, label }) => (
+              <motion.div
+                key={label}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
               >
-                <Icon />
-              </SocialIconButton>
-            </Link>
-          ))}
-        </FooterSocial>
-        <FooterTextContent>
-          <FooterCopyrights>
-            © {currentYear} | All rights reserved | Designed by:{" "}
-            <Link href="#" passHref>
-              Omeruta
-            </Link>
-          </FooterCopyrights>
-          <FooterTerms>
-            {["Contact", "Privacy", "Terms"].map((item, index) => (
-              <React.Fragment key={item}>
-                <FooterLink>
-                  <Link href="#">{item}</Link>
-                </FooterLink>
-                {index < 2 && <span>|</span>}
-              </React.Fragment>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="relative group h-10 w-10 rounded-full"
+                  asChild
+                >
+                  <Link href={url} target="_blank">
+                    <Icon className="h-5 w-5 transition-colors group-hover:text-primary" />
+                    <span className="sr-only">{label}</span>
+                    <div className="absolute inset-0 bg-primary/10 rounded-full scale-0 group-hover:scale-100 transition-transform duration-300" />
+                  </Link>
+                </Button>
+              </motion.div>
             ))}
-          </FooterTerms>
-          <FooterBottom variant="body2">
-            Omeruta - Requiem Creatif are registered trademarks of Omeruta.
-          </FooterBottom>
-        </FooterTextContent>
-      </FooterWrapper>
-    </FooterContainer>
+          </motion.div>
+
+          {/* Text Content */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="flex flex-col items-center md:items-end gap-4"
+          >
+            {/* Copyright */}
+            <p className="text-sm text-muted-foreground">
+              © {currentYear} | All rights reserved | Designed by:{" "}
+              <Link
+                href="#"
+                className="text-foreground hover:text-primary transition-colors"
+              >
+                Omeruta
+              </Link>
+            </p>
+
+            {/* Links */}
+            <div className="flex items-center gap-2">
+              {footerLinks.map((item, index) => (
+                <React.Fragment key={item}>
+                  <Button
+                    variant="link"
+                    className="text-xs text-muted-foreground hover:text-foreground p-0 h-auto uppercase"
+                    asChild
+                  >
+                    <Link href="#">{item}</Link>
+                  </Button>
+                  {index < footerLinks.length - 1 && (
+                    <Separator
+                      orientation="vertical"
+                      className="h-3 bg-primary/20"
+                    />
+                  )}
+                </React.Fragment>
+              ))}
+            </div>
+
+            {/* Trademark */}
+            <p className="text-xs text-muted-foreground/70 text-center md:text-right">
+              Omeruta - Requiem Creatif are registered trademarks of Omeruta.
+            </p>
+          </motion.div>
+        </div>
+      </div>
+    </footer>
   );
-};
+}
 
 export default Footer;

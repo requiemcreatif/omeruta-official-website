@@ -2,8 +2,11 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ReactNode } from "react";
-import { ThemeProvider } from "@/components/providers/ThemeProvider";
-import { Box } from "@mui/material";
+import { Box, CssBaseline } from "@mui/material";
+//import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import { ThemeProvider } from "@/components/theme-provider";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { ReactQueryProviders } from "./react-query-provider";
 import Navbar from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 
@@ -81,18 +84,28 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ThemeProvider>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              minHeight: "100vh",
-            }}
-          >
-            <Navbar />
-            <Box sx={{ flex: 1 }}>{children}</Box>
-            <Footer />
-          </Box>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem={false}
+          disableTransitionOnChange
+        >
+          <ReactQueryProviders>
+            <TooltipProvider>
+              <CssBaseline />
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  minHeight: "100vh",
+                }}
+              >
+                {/* <Navbar /> */}
+                <Box sx={{ flex: 1 }}>{children}</Box>
+                <Footer />
+              </Box>
+            </TooltipProvider>
+          </ReactQueryProviders>
         </ThemeProvider>
       </body>
     </html>
