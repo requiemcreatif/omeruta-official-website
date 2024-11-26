@@ -11,20 +11,7 @@ import { Container } from "@mui/material";
 import { ProjectSections } from "@/components/ProjectSections";
 import { ContactForm } from "@/components/ContactForm";
 
-import {
-  ArrowRight,
-  Globe2,
-  Search,
-  PenTool,
-  Users,
-  ChevronDown,
-  Sparkles,
-  BarChart3,
-  Languages,
-  Target,
-  TrendingUp,
-  Zap,
-} from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 // Floating animation for background elements
 const floatingAnimation = {
@@ -109,8 +96,8 @@ function Home() {
               transition={{ delay: 0.5, duration: 0.8 }}
               className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8"
             >
-              At Omeruta, we blend groundbreaking technology with artistic
-              vision to create games that offer more than just entertainment.
+              We blend groundbreaking technology with artistic vision to create
+              games that offer more than just entertainment.
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -120,7 +107,7 @@ function Home() {
             >
               <Button
                 size="lg"
-                className="group px-8 relative overflow-hidden bg-primary hover:bg-primary/90 text-primary-foreground"
+                className="group px-8 relative rounded-full overflow-hidden bg-primary hover:bg-primary/90 text-primary-foreground"
                 style={{
                   // background:
                   //   "linear-gradient(90deg, var(--primary) 0%, var(--primary) 50%, var(--primary-foreground) 50%, var(--primary-foreground) 100%)",
@@ -186,7 +173,7 @@ function Home() {
       <section ref={featuresRef} className="py-24 relative">
         <div className="absolute inset-0 bg-gradient-to-b from-background via-primary/5 to-background" />
         <Container className="container px-4 relative">
-          <motion.div
+          {/* <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -201,24 +188,37 @@ function Home() {
               cutting-edge tools and solutions that empower both game developers
               and creative professionals.
             </p>
-          </motion.div>
+          </motion.div> */}
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 auto-rows-fr">
             {[
               {
-                title: "Requiem Creatif",
+                title: (
+                  <h2 className="text-4xl font-bold mb-4">
+                    <GradientText>Requiem Creatif</GradientText>
+                  </h2>
+                ),
                 description:
                   "Requiem Creatif, a pivotal department of Omeruta, specializes in innovative software development. We are dedicated to creating cutting-edge tools and solutions that empower both game developers and creative professionals.",
                 // icon: Languages,
               },
               {
-                title: "Latest Updates",
+                title: (
+                  <h2 className="text-4xl font-bold mb-4">
+                    <GradientText>Latest Updates</GradientText>
+                  </h2>
+                ),
                 description:
                   "Stay tuned for the latest updates and behind-the-scenes insights from Omeruta and Requiem Creatif. Here, we will share exciting news about our upcoming game releases, software development progress, industry partnerships, and special events. Whether it's a breakthrough in game design, a new software tool in the works, or an insider look at our creative process, you'll find all the freshest information right here.",
                 // icon: Target,
               },
             ].map((feature, index) => (
-              <FeatureCard key={index} {...feature} index={index} />
+              <FeatureCard
+                key={index}
+                title={feature.title.props.children}
+                description={feature.description}
+                index={index}
+              />
             ))}
           </div>
         </Container>
@@ -228,7 +228,7 @@ function Home() {
       <section ref={solutionsRef} className="py-24 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-t from-background via-primary/5 to-background" />
         <Container className="container px-4 relative">
-          <motion.div
+          {/* <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -246,7 +246,7 @@ function Home() {
               or an insider look at our creative process, you'll find all the
               freshest information right here.
             </p>
-          </motion.div>
+          </motion.div> */}
 
           {/* <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
             {[
@@ -306,12 +306,15 @@ function Home() {
           </div> */}
           <ProjectSections />
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button size="lg" className="group px-8 w-full sm:w-auto">
+          {/* <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Button
+              size="lg"
+              className="group px-8 w-full sm:w-auto rounded-full"
+            >
               Discover More
               <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </Button>
-          </div>
+          </div> */}
         </Container>
       </section>
       <ContactForm />
