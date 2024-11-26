@@ -228,7 +228,7 @@ function Home() {
       <section ref={solutionsRef} className="py-24 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-t from-background via-primary/5 to-background" />
         <Container className="container px-4 relative">
-          {/* <motion.div
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -246,7 +246,7 @@ function Home() {
               or an insider look at our creative process, you'll find all the
               freshest information right here.
             </p>
-          </motion.div> */}
+          </motion.div>
 
           {/* <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
             {[

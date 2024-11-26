@@ -52,9 +52,7 @@ export function FloatingNavbar({
             className="cursor-pointer"
             onClick={() => router.push("/")}
           >
-            <GradientText className="text-xl font-bold">
-              Académie Montessori
-            </GradientText>
+            <GradientText className="text-xl font-bold">Omeruta</GradientText>
           </motion.div>
 
           {/* Mobile Menu Button */}
